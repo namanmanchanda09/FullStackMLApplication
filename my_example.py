@@ -25,7 +25,7 @@ def return_prediction(model,scaler,sample_json):
     classes = np.array(['setosa', 'versicolor', 'virginica'])
     flower=scaler.transform(flower)
     class_ind = model.predict_classes(flower)
-    return classes[class_ind]
+    return classes[class_ind][0]
 
 app=Flask(__name__)
 
@@ -41,7 +41,7 @@ def flower_prediction():
     content = request.json
     
     results = return_prediction(flower_model,flower_scaler,content)
-    return str(results)
+    return jsonify(results)
 
 
 if __name__ == '__main__':
